@@ -22,5 +22,3 @@ add_executable(craps_exe
 # Link the library to the main program
 target_link_libraries(craps_exe craps_library)
 
-
-

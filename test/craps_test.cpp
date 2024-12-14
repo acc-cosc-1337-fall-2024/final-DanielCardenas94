@@ -37,3 +37,32 @@ TEST_CASE("Shooter creates rolls and tracks values") {
         REQUIRE(result <= 12);
     }
 }
+
+#include "../src/come_out_phase.h"
+#include "../src/point_phase.h"
+
+TEST_CASE("ComeOutPhase correctly identifies roll outcomes") {
+    Die die1, die2;
+    Roll roll(die1, die2);
+
+    ComeOutPhase come_out_phase;
+    roll.roll_dice();
+    RollOutcome outcome = come_out_phase.get_outcome(&roll);
+    REQUIRE(outcome == RollOutcome::natural ||
+            outcome == RollOutcome::craps ||
+            outcome == RollOutcome::point);
+}
+
+TEST_CASE("PointPhase correctly identifies roll outcomes") {
+    Die die1, die2;
+    Roll roll(die1, die2);
+
+    int point = 5;
+    PointPhase point_phase(point);
+    roll.roll_dice();
+    RollOutcome outcome = point_phase.get_outcome(&roll);
+    REQUIRE(outcome == RollOutcome::point ||
+            outcome == RollOutcome::seven_out ||
+            outcome == RollOutcome::nopoint);
+}
+
