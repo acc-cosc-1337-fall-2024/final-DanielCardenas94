@@ -24,3 +24,16 @@ TEST_CASE("Roll combines two dice and returns values between 2 and 12") {
     }
 }
 
+#include "../src/shooter.h"
+
+TEST_CASE("Shooter creates rolls and tracks values") {
+    Die die1, die2;
+    Shooter shooter;
+
+    for (int i = 0; i < 10; ++i) {
+        Roll* roll = shooter.throw_dice(die1, die2);
+        int result = roll->roll_value();
+        REQUIRE(result >= 2);
+        REQUIRE(result <= 12);
+    }
+}
